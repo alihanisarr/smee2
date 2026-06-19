@@ -1,2 +1,23 @@
-# smee2
-Replacing Smee.io with our Webhook Delivery Service
+# Smee2
+Replacing Smee.io with our own Webhook Delivery Service called Smee2 for the SCE server
+
+## Setup instructions:
+``` 
+python -m venv .venv
+source ./.venv/bin/activate
+python -m pip install fastapi uvicorn 'uvicorn[standard]'
+python -m pip freeze > requirements.txt  
+```
+
+## How to test
+Testing /webhook to ensure that the POST request is received and sent to server:
+``` 
+    curl -X POST http://localhost:5000/webhook \
+    -H "Content-Type: application/json" \
+    -H "X-GitHub-Event: push" \
+    -d '{"ref": "refs/heads/main", "repository": {"name": "test-repo"}}'
+```
+
+Testing /tunnel to ensure that the websocket connection with the server is established:
+
+`websocat ws://127.0.0.1:5000/tunnel`
