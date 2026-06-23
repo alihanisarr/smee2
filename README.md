@@ -1,5 +1,5 @@
 # Smee2
-Replacing Smee.io with our own Webhook Delivery Service called Smee2 for the SCE server
+A self-hosted webhook relay (Smee.io alternative) that forwards GitHub webhook payloads to WebSocket clients (SCE CICD server) in real time, replacing reliance on smee.io's public infrastructure.
 
 ## Setup instructions:
 ``` 
