@@ -11,13 +11,18 @@ async def webhook(subscription_id: str, request: Request):
     if subscription_id is not None:
         global client
         data = await request.json()
+        print("Webhook received: ", data)
+
         subscribers[subscription_id] = data
         if client is not None:
             await client.send_json(data) 
-        return {"message":"hello"}   
+            print("Data sent to websocket client")
+        return {"message":"received"}  
+     
     else:   
         print("Invalid endpoint, connection not accepted")
         return
+    
     
 @app.websocket("/tunnel/{subscription_id}")
 async def websocket_endpoint(subscription_id: str, websocket: WebSocket):
@@ -33,5 +38,5 @@ async def websocket_endpoint(subscription_id: str, websocket: WebSocket):
     await websocket.send_text("Message received")
 
 if __name__ == "__main__":
-    uvicorn.run("server:app", port=5000) 
+    uvicorn.run("server:app", host="0.0.0.0", port=5000) 
     

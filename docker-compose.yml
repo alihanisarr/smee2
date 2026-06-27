@@ -1,0 +1,10 @@
+services:
+  smee:
+    build: .
+    image: smee2image:latest
+    ports: 
+      - "5000:5000"
+    container_name: smee2
+
+
+
